@@ -48,7 +48,7 @@ public:
 	Point3 position; /**< @brief The position of the Entity */
 	Point3 rotation; /**< @brief The rotation of the Entity */
 	Point3 scale; /**< @brief The scale of the Entity */
-
+	
 	// data structure
 	/// @brief add an Entity as a child of this Entity.
 	/// Defines the data structure (parent/children relationship)

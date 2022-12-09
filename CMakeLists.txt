@@ -141,11 +141,11 @@ add_library(rt2d
 )
 file(
 	COPY ${CMAKE_SOURCE_DIR}/rt2d/shaders
-	DESTINATION ${CMAKE_BINARY_DIR}
+	DESTINATION ${CMAKE_BINARY_DIR}/Debug
 )
 file(
 	COPY ${CMAKE_SOURCE_DIR}/rt2d/fonts
-	DESTINATION ${CMAKE_BINARY_DIR}
+	DESTINATION ${CMAKE_BINARY_DIR}/Debug
 )
 
 ####################################################################
@@ -158,6 +158,14 @@ IF(MAKE_START)
 		start/myentity.h
 		start/myscene.cpp
 		start/myscene.h
+		start/player.cpp
+		start/player.h
+		start/bullet.cpp
+		start/bullet.h
+		start/planet.cpp
+		start/planet.h
+		start/enemy.cpp
+		start/enemy.h
 	)
 	target_link_libraries(start
 		${ALL_GRAPHICS_LIBS}
@@ -165,7 +173,7 @@ IF(MAKE_START)
 	# Copy assets to the build directory
 	file(
 		COPY start/assets
-		DESTINATION ${CMAKE_BINARY_DIR}
+		DESTINATION ${CMAKE_BINARY_DIR}/Debug
 	)
 ENDIF()
 
