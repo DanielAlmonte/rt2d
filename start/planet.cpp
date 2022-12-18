@@ -13,31 +13,31 @@ using namespace std;
 //Planet
 Planet::Planet() : Entity()
 {
-	this->addCircleSprite(("assets/Planet.tga"), 175 , 16);
-	//this->addSprite("assets/Planet.tga");
+	//this->addCircleSprite(("assets/Planet.tga"), 64 , 16);
+	this->addSprite("assets/Planet.tga");
 	this->sprite()->color = WHITE;		
 
 	Line s3;
 	//Top line left corner
-	s3.addPoint(-175, -175);
+	s3.addPoint(-64, -64);
 	
 	//Right top corner
-	s3.addPoint(175, -175);
+	s3.addPoint(64, -64);
 	
 	//Right bottom corner
-	s3.addPoint(175, 175);
+	s3.addPoint(64, 64);
 	
 	//Left bottom corner
-	s3.addPoint(-175, 175);
+	s3.addPoint(-64, 64);
 
 	//Left top corner
-	s3.addPoint(-175, -175);
+	s3.addPoint(-64, -64);
 
 	this->addLine(&s3);
 	this->line()->color = GREEN;
 
 	//Debug circle
-	ddCircle(this->position.x, this->position.y, 175,GREEN);
+	ddCircle(this->position.x, this->position.y, 64,GREEN);
 }
 
 
@@ -57,6 +57,5 @@ void Planet::update(float deltaTime)
 	// {
 	// 	this->rotation.z -= TWO_PI;
 	// }
-
 }
 

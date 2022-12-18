@@ -52,19 +52,6 @@ MyScene::~MyScene()
 void MyScene::update(float deltaTime)
 {
 
-
-
-	player->line()->color = GREEN;
-	planet->line()->color = GREEN;
-
-	Rectangle rect1 = Rectangle(player->position.x, player->position.y, 64,64);
-	Rectangle rect2 = Rectangle(planet->position.x, planet->position.y, 128,128);
-
-	if (Collider::rectangle2rectangle(rect1, rect2)) 
-	{
-		player->line()->color = RED;
-		planet->line()->color = RED;
-	}
 	// ###############################################################
 	// Escape key stops the Scene
 	// ###############################################################
@@ -88,13 +75,9 @@ void MyScene::update(float deltaTime)
 	player->rotation.z = angle;
 	
 
-	// cout<< "x:"<<player->position.x <<endl;
-	// cout<< "y:"<<player->position.y <<endl;
 	// ###############################################################
 	// Screen Edges
 	// ###############################################################
-	
-	
 
 	//Border
 
@@ -157,4 +140,28 @@ void MyScene::update(float deltaTime)
             cout << "delete bullet" << endl;
         }
     }
+
+	// ###############################################################
+	// Collision detection
+	// ###############################################################
+	player->line()->color = GREEN;
+	planet->line()->color = GREEN;
+
+	Rectangle rect1 = Rectangle(player->position.x, player->position.y, 128,128);
+	Rectangle rect2 = Rectangle(planet->position.x, planet->position.y, 128,128);
+
+	if (Collider::rectangle2rectangle(rect1, rect2)) 
+	{
+		player->line()->color = RED;
+		planet->line()->color = RED;
+	}
+
+	// Rectangle rect = Rectangle(player->position.x, player->position.y, 128,128);
+	// Circle circle = Circle(planet->position.x, planet->position.y, 64);
+
+	// if (Collider::circle2rectangle(circle, rect)) 
+	// {
+	// 	player->line()->color = RED;
+	// 	planet->line()->color = RED;
+	// }
 }
