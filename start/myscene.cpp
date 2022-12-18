@@ -8,9 +8,12 @@
 #include <sstream>
 
 #include "myscene.h"
+#include "myentity.h"
 #include "player.h"
 #include "bullet.h"
 #include "planet.h"
+#include "collider.h"
+
 using namespace std;
 
 MyScene::MyScene() : Scene()
@@ -21,7 +24,7 @@ MyScene::MyScene() : Scene()
 	// create a single instance of MyEntity in the middle of the screen.
 	// the Sprite is added in Constructor of MyEntity.
 	player = new Player();
-	player->position = Point2(640, 540);
+	player->position = Point2(SWIDTH/2, SHEIGHT/2);
 
 	planet = new Planet();
 	planet->position = Point2(SWIDTH/2, SHEIGHT/2);
@@ -39,7 +42,7 @@ MyScene::~MyScene()
 {
 	// deconstruct and delete the Tree
 	this->removeChild(player);
-	this->removeChild(player);
+	this->removeChild(planet);
 
 	// delete player from the heap (there was a 'new' in the constructor)
 	delete player;
@@ -48,28 +51,51 @@ MyScene::~MyScene()
 
 void MyScene::update(float deltaTime)
 {
+
+
+
+	player->line()->color = GREEN;
+	planet->line()->color = GREEN;
+
+	Rectangle rect1 = Rectangle(player->position.x, player->position.y, 64,64);
+	Rectangle rect2 = Rectangle(planet->position.x, planet->position.y, 128,128);
+
+	if (Collider::rectangle2rectangle(rect1, rect2)) 
+	{
+		player->line()->color = RED;
+		planet->line()->color = RED;
+	}
 	// ###############################################################
 	// Escape key stops the Scene
 	// ###############################################################
-	if (input()->getKeyUp(KeyCode::Escape)) {
+	if (input()->getKeyUp(KeyCode::Escape)) 
+	{
 		this->stop();
 	}
-
-	// ###############################################################
-	// Spacebar scales player
-	// ###############################################################
-	// if (input()->getKeyDown(KeyCode::Space)) {
-	// 	player->scale = Point(0.5f, 0.5f);
-	// }
-	// if (input()->getKeyUp(KeyCode::Space)) {
-	// 	player->scale = Point(1.0f, 1.0f);
-	// }
-
 	
+	// ###############################################################
+	// Rotatie
+	// ###############################################################
+
+	float mx = input()->getMouseX();
+	float my = input()->getMouseY();
+	Point2 mouse = Point2(mx, my);
+
+	ddClear();
+	ddLine(player->position.x, player->position.y, mx, my, GREEN);
+
+	float angle = atan2(mouse.y - player->position.y, mouse.x - player->position.x);
+	player->rotation.z = angle;
+	
+
+	// cout<< "x:"<<player->position.x <<endl;
+	// cout<< "y:"<<player->position.y <<endl;
 	// ###############################################################
 	// Screen Edges
 	// ###############################################################
 	
+	
+
 	//Border
 
 	//X Axis
@@ -116,7 +142,7 @@ void MyScene::update(float deltaTime)
 	// 	player ->position.y = SHEIGHT;
 	// }
 	
-	
+
 	// ###############################################################
 	// Bullets
 	// ###############################################################
@@ -128,18 +154,7 @@ void MyScene::update(float deltaTime)
             this->removeChild(player->bullets[i]);
             delete player->bullets[i];
             player->bullets.erase(player->bullets.begin() + i);
-            std::cout << "delete bullet" << std::endl;
+            cout << "delete bullet" << endl;
         }
     }
-
-	
-
-	// ###############################################################
-	// Rotate color
-	// ###############################################################
-	// if (t.seconds() > 0.0333f) {
-	// 	RGBAColor color = player->sprite()->color;
-	// 	player->sprite()->color = Color::rotate(color, 0.01f);
-	// 	t.start();
-	// }
 }

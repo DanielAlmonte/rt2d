@@ -11,9 +11,27 @@ using namespace std;
 //Player
 Player::Player() : Entity()
 {
-	movementSpeed = 300;
-	this->addSprite("assets/SpaceShipTest.tga");
-	this->sprite()->color = WHITE;
+	this->addSprite("assets/SpaceShip.tga");
+	this->sprite()->color = BLUE;
+
+	Line s1;
+	//Top line left corner
+	s1.addPoint(-32, -32);
+	
+	//Right top corner
+	s1.addPoint(32, -32);
+	
+	//Right bottom corner
+	s1.addPoint(32, 32);
+	
+	//Left bottom corner
+	s1.addPoint(-32, 32);
+
+	//Left top corner
+	s1.addPoint(-32, -32);
+
+	this->addLine(&s1);
+	this->line()->color = GREEN;
 }
 
 Player::~Player()
@@ -24,43 +42,50 @@ Player::~Player()
 void Player::update(float deltaTime)
 {
 	//###############################################################
-	// Movement test
+	// Movement
 	// ###############################################################
 
 	//Up
 	if (input()->getKey(KeyCode::W) || input()->getKey(KeyCode::Up)) 
 	{
-		this->position.y -= movementSpeed * deltaTime;
+		this->position -= Vector2(0, 0.4);
 	}
 	//Down
 	if (input()->getKey(KeyCode::S) || input()->getKey(KeyCode::Down)) 
 	{
-		this->position.y += movementSpeed * deltaTime;
+		this->position += Vector2(0, 0.4);
 	}
 	//Right
 	if (input()->getKey(KeyCode::D) || input()->getKey(KeyCode::Right)) 
 	{
-		this->position.x += movementSpeed * deltaTime;
+		this->position += Vector2(0.3, 0);
 	}
 	//Left
 	if (input()->getKey(KeyCode::A) || input()->getKey(KeyCode::Left)) 
 	{
-		this->position.x -= movementSpeed * deltaTime;
+		this->position -= Vector2(0.3, 0);
 	}
 
+	float mx = input()->getMouseX();
+	float my = input()->getMouseY();
+	Point2 mouse = Point2(mx, my);
+
+	float angle = atan2(mouse.y - this->position.y, mouse.x - this->position.x);
+	this->rotation.z = angle;
+
 	//###############################################################
-	// Bullet test
+	// Bullet
 	// ###############################################################
 
-	if (input()->getKeyDown(KeyCode::Space)) 
+	if (input()->getKeyDown(KeyCode::Space) || input()->getMouseDown(0)) 
 	{
         bullet = new Bullet();
-        bullet->position = this->position - Point2(0,50);
-        this->addChild(bullet);
+        bullet->position = this->position;
+		//bullet->position = this->position - Point2(0, 32);
+		bullet->rotation.z = angle;
+       	//this->addChild(bullet);
         this->parent()->addChild(bullet);
         bullets.push_back(bullet);
 	}
-
-	
 }
 

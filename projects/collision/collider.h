@@ -68,7 +68,7 @@ public:
 		float dx = circle.x - mx;
 		float dy = circle.y - my;
 		return (dx * dx + dy * dy) < (circle.radius * circle.radius);
-	}
+	} 
 
 	// AABB
 	static bool rectangle2rectangle(const Rectangle& rect1, const Rectangle& rect2) {

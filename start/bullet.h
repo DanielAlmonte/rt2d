@@ -33,7 +33,9 @@ public:
 private:
 	/* add your private declarations */
 	/// @brief the speed of the bullets
-	int bulletSpeed;
+	Point2 bulletSpeed = Point2(500, 500);
+
+	Timer t;
 };
 
 #endif /* BULLET_H */

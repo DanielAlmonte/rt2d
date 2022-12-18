@@ -25,6 +25,8 @@ public:
 	/// @return void
 	virtual void update(float deltaTime);
 
+	MyEntity* myentity;
+
 private:
 	/* add your private declarations */
 };

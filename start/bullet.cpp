@@ -11,9 +11,27 @@
 //Bullet
 Bullet::Bullet() : Entity()
 {
-	bulletSpeed = 500;
-	this->addSprite("assets/BulletTest.tga");
-	this->sprite()->color = GREEN;
+	this->addSprite("assets/Bullet.tga");
+	this->sprite()->color = BLUE;
+	
+	Line s2;
+	//Top line left corner
+	s2.addPoint(-5, -7);
+	
+	//Right top corner
+	s2.addPoint(5, -7);
+	
+	//Right bottom corner
+	s2.addPoint(5, 7);
+	
+	//Left bottom corner
+	s2.addPoint(-5, 7);
+
+	//Left top corner
+	s2.addPoint(-5, -7);
+
+	this->addLine(&s2);
+	this->line()->color = GREEN;
 }
 
 
@@ -26,5 +44,14 @@ Bullet::~Bullet()
 
 void Bullet::update(float deltaTime)
 {
-	this->position.y -= bulletSpeed * deltaTime;
+	//this->position.y -= bulletSpeed * deltaTime;
+
+	this->position += bulletSpeed * Point2(cos(this->rotation.z), sin(this->rotation.z)) * deltaTime;
+
+	if (t.seconds() > 0.00333f) 
+	{
+		RGBAColor color = this->sprite()->color;
+		this->sprite()->color = Color::rotate(color, 0.01f);
+		t.start();
+	}
 }

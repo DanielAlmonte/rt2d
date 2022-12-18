@@ -29,6 +29,9 @@ public:
 	/// @param deltaTime the elapsed time in seconds
 	/// @return void
 	virtual void update(float deltaTime);
+	
+	float angle;
+	
 
 private:
 	/// @brief the spaceship in the middle of the screen
@@ -36,6 +39,8 @@ private:
 
 	/// @brief the planet in the middle of the screen
 	Planet* planet;
+
+	MyEntity* myentity;
 
 	/// @brief a Timer to rotate the color every n seconds
 	Timer t;

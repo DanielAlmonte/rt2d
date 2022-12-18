@@ -11,6 +11,7 @@
 #define PLANET_H
 
 #include "myentity.h"
+#include "player.h"
 #include <rt2d/entity.h>
 
 
@@ -28,8 +29,14 @@ public:
 	/// @return void
 	virtual void update(float deltaTime);
 
+	/// @brief the amouth of health that the planet has
+	//int planetHealth;
+
+	Player* player;
+
 private:
 	/* add your private declarations */
+	
 };
 
 #endif /* PLANET_H */
