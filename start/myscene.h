@@ -31,7 +31,6 @@ public:
 	virtual void update(float deltaTime);
 	
 	float angle;
-	
 
 private:
 	/// @brief the spaceship in the middle of the screen

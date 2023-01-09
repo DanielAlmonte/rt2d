@@ -12,7 +12,6 @@
 #include "player.h"
 #include "bullet.h"
 #include "planet.h"
-#include "collider.h"
 
 using namespace std;
 
@@ -24,7 +23,7 @@ MyScene::MyScene() : Scene()
 	// create a single instance of MyEntity in the middle of the screen.
 	// the Sprite is added in Constructor of MyEntity.
 	player = new Player();
-	player->position = Point2(SWIDTH/2, SHEIGHT/2);
+	player->position = Point2(SWIDTH/2, SHEIGHT/1.2);
 
 	planet = new Planet();
 	planet->position = Point2(SWIDTH/2, SHEIGHT/2);
@@ -69,8 +68,11 @@ void MyScene::update(float deltaTime)
 	Point2 mouse = Point2(mx, my);
 
 	ddClear();
+
+	//Line between player and mouse
 	ddLine(player->position.x, player->position.y, mx, my, GREEN);
 
+	//Rotate player & bullets
 	float angle = atan2(mouse.y - player->position.y, mouse.x - player->position.x);
 	player->rotation.z = angle;
 	
@@ -80,7 +82,7 @@ void MyScene::update(float deltaTime)
 	// ###############################################################
 
 	//Border
-
+	
 	//X Axis
 	if (player -> position.x + player->sprite()->size.x /2 > SWIDTH)
 	{
@@ -100,6 +102,36 @@ void MyScene::update(float deltaTime)
 	{
 		player->position.y -= -1;
 	}
+
+	//Decelaration test
+
+	// //X Axis
+	// if (player -> position.x + player->sprite()->size.x /2 > SWIDTH)
+	// {
+	// 	player->position.x  -= decelaration.x;
+	// }
+	// if (player -> position.x - player->sprite()->size.x /2  < 0)
+	// {
+	// 	player->position.x += decelaration.x;
+	// }
+
+	// //Y Axis Down
+	// // if (player -> position.y + player->sprite()->size.y /2 > SHEIGHT+ 50)
+	// // {
+	// // 	player->position.y -= decelaration.y;
+	// // }
+
+	// //Y Axis Top
+	// if (player -> position.y - player->sprite()->size.y /2  < 50)
+	// {
+	// 	player->position.y  += decelaration.y;
+	// }
+
+
+	// if (player -> position.y - player->sprite()->size.y /2  < -60)
+	// {
+	// 	player->position.y  -=  decelaration.y * -1;
+	// }
 
 	//Teleport
 
@@ -127,7 +159,7 @@ void MyScene::update(float deltaTime)
 	
 
 	// ###############################################################
-	// Bullets
+	// Delete Bullets
 	// ###############################################################
 	
 	for (int i = player->bullets.size() - 1; i >= 0; i--) 
@@ -144,24 +176,37 @@ void MyScene::update(float deltaTime)
 	// ###############################################################
 	// Collision detection
 	// ###############################################################
-	player->line()->color = GREEN;
-	planet->line()->color = GREEN;
+	
+	// the disntace between the planet and the player
+	Vector2 distance =  Vector2(planet->position - player->position);
+	float d = distance.getLength();
 
-	Rectangle rect1 = Rectangle(player->position.x, player->position.y, 128,128);
-	Rectangle rect2 = Rectangle(planet->position.x, planet->position.y, 128,128);
+	//the radius of the planet
+	float rw = planet->sprite()->width() /2;
+	float rh = planet->sprite()->height() /2;
+	float r = rw + rh /2;
+	//cout<<r<<endl;
 
-	if (Collider::rectangle2rectangle(rect1, rect2)) 
+	if (d < r)
 	{
 		player->line()->color = RED;
 		planet->line()->color = RED;
+		player->velocity = Vector2 (0.2 , 0.4);
 	}
-
-	// Rectangle rect = Rectangle(player->position.x, player->position.y, 128,128);
-	// Circle circle = Circle(planet->position.x, planet->position.y, 64);
-
-	// if (Collider::circle2rectangle(circle, rect)) 
-	// {
-	// 	player->line()->color = RED;
-	// 	planet->line()->color = RED;
-	// }
+	else if (d < r + 40 )
+	{
+		player->line()->color = ORANGE;
+		planet->line()->color = ORANGE;
+		//planet->sprite()->color = RED;
+		player->velocity = Vector2 (0.4 , 0.8);
+	}
+	
+	else if (d > r)
+	{
+		player->line()->color = GREEN;
+		planet->line()->color = GREEN;
+		//planet->sprite()->color = WHITE;
+		player->velocity = Vector2(0.8, 1.2);
+	}
+	//cout<<player->velocity<<endl;
 }

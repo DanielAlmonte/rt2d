@@ -24,7 +24,7 @@ public:
 	/// @brief Destructor
 	virtual ~Player();
 
-	Vector2 Velocity;
+	Vector2 Velocity = Vector2(0.8, 1.2);
 
 	/// @brief update is automatically called every frame
 	/// @param deltaTime the elapsed time in seconds
@@ -35,8 +35,14 @@ public:
 	std::vector<Bullet*> bullets;
 
 	/// @brief the speed that the player moves at
-	//Vector2 velocity = Vector2(400,450);
+	// Vector2 velocityY = Vector2(0, 1.2);
+	// Vector2 velocityX = Vector2(0.8, 0);
+	
+	Vector2 velocity = Vector2(0.8, 1.2);
 
+
+	// float Acceleration;
+	// float thrustForce = 500;
 	/// @brief the speed that the player decelerates at
 	//Vector2 decelaration = Vector2(50, 62,5);
 
@@ -52,7 +58,7 @@ private:
 
 	/// @brief pointer to the spaceship bullets
 	Bullet* bullet;
-
+	
 	float angle;
 };
 

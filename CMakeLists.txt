@@ -166,7 +166,6 @@ IF(MAKE_START)
 		start/planet.h
 		start/enemy.cpp
 		start/enemy.h
-		start/collider.h
 	)
 	target_link_libraries(start
 		${ALL_GRAPHICS_LIBS}
