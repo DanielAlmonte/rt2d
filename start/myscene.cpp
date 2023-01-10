@@ -182,10 +182,11 @@ void MyScene::update(float deltaTime)
 	float d = distance.getLength();
 
 	//the radius of the planet
-	float rw = planet->sprite()->width() /2;
-	float rh = planet->sprite()->height() /2;
-	float r = rw + rh /2;
-	//cout<<r<<endl;
+	// float rw = planet->sprite()->width() /2;
+	// float rh = planet->sprite()->height() /2;
+	// float r = rw + rh /2;
+	float r = (planet->sprite()->width() /2) + (planet->sprite()->height() /2) /2;
+	//cout<<r<<endl;  
 
 	if (d < r)
 	{
