@@ -12,6 +12,7 @@
 #include "player.h"
 #include "bullet.h"
 #include "planet.h"
+#include "enemy.h"
 
 using namespace std;
 
@@ -27,12 +28,16 @@ MyScene::MyScene() : Scene()
 
 	planet = new Planet();
 	planet->position = Point2(SWIDTH/2, SHEIGHT/2);
+
+	enemy= new Enemy();
+	enemy->position = Point2(SWIDTH/2, SHEIGHT/2);
 	
 
 	// create the scene 'tree'
 	// add player to this Scene as a child.
 	this->addChild(planet);
 	this->addChild(player);
+	this->addChild(enemy);
 	
 }
 
@@ -42,10 +47,12 @@ MyScene::~MyScene()
 	// deconstruct and delete the Tree
 	this->removeChild(player);
 	this->removeChild(planet);
+	this->removeChild(enemy);
 
 	// delete player from the heap (there was a 'new' in the constructor)
 	delete player;
 	delete planet;
+	delete enemy;
 }
 
 void MyScene::update(float deltaTime)
@@ -103,36 +110,6 @@ void MyScene::update(float deltaTime)
 		player->position.y -= -1;
 	}
 
-	//Decelaration test
-
-	// //X Axis
-	// if (player -> position.x + player->sprite()->size.x /2 > SWIDTH)
-	// {
-	// 	player->position.x  -= decelaration.x;
-	// }
-	// if (player -> position.x - player->sprite()->size.x /2  < 0)
-	// {
-	// 	player->position.x += decelaration.x;
-	// }
-
-	// //Y Axis Down
-	// // if (player -> position.y + player->sprite()->size.y /2 > SHEIGHT+ 50)
-	// // {
-	// // 	player->position.y -= decelaration.y;
-	// // }
-
-	// //Y Axis Top
-	// if (player -> position.y - player->sprite()->size.y /2  < 50)
-	// {
-	// 	player->position.y  += decelaration.y;
-	// }
-
-
-	// if (player -> position.y - player->sprite()->size.y /2  < -60)
-	// {
-	// 	player->position.y  -=  decelaration.y * -1;
-	// }
-
 	//Teleport
 
 	//X Axis
@@ -164,6 +141,18 @@ void MyScene::update(float deltaTime)
 	
 	for (int i = player->bullets.size() - 1; i >= 0; i--) 
 	{ 
+		//the disntace between the enemy and the bullet
+		Vector2 distance =  Vector2(enemy->position - player->bullets[i]->position);
+		float d = distance.getLength();
+
+		//the radius of the enemy
+		float r = (enemy->sprite()->width() /2) + (enemy->sprite()->height() /2) /2;
+
+		if (d < r)
+		{
+			removeChild(enemy); 
+		}
+
         if (player->bullets[i]->position.x > SWIDTH || player->bullets[i]->position.x < 0 || player->bullets[i]->position.y < 0 || player->bullets[i]->position.y > SHEIGHT)
         {
             this->removeChild(player->bullets[i]);
@@ -177,16 +166,12 @@ void MyScene::update(float deltaTime)
 	// Collision detection
 	// ###############################################################
 	
-	// the disntace between the planet and the player
+	//the disntace between the planet and the player
 	Vector2 distance =  Vector2(planet->position - player->position);
 	float d = distance.getLength();
 
 	//the radius of the planet
-	// float rw = planet->sprite()->width() /2;
-	// float rh = planet->sprite()->height() /2;
-	// float r = rw + rh /2;
 	float r = (planet->sprite()->width() /2) + (planet->sprite()->height() /2) /2;
-	//cout<<r<<endl;  
 
 	if (d < r)
 	{
@@ -209,5 +194,4 @@ void MyScene::update(float deltaTime)
 		//planet->sprite()->color = WHITE;
 		player->velocity = Vector2(0.8, 1.2);
 	}
-	//cout<<player->velocity<<endl;
 }

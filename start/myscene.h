@@ -15,6 +15,7 @@
 #include "player.h"
 #include "planet.h"
 #include "bullet.h"
+#include "enemy.h"
 
 /// @brief The MyScene class is the Scene implementation.
 class MyScene : public Scene
@@ -33,13 +34,17 @@ public:
 	float angle;
 
 private:
-	/// @brief the spaceship in the middle of the screen
+	/// @brief the spaceship that the player moves
 	Player* player;
+
+	/// @brief the spaceship of the enemy
+	Enemy* enemy;
 
 	/// @brief the planet in the middle of the screen
 	Planet* planet;
 
-	MyEntity* myentity;
+	/// @brief Pointer to the bullet
+	Bullet* bullet;
 
 	/// @brief a Timer to rotate the color every n seconds
 	Timer t;
