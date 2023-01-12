@@ -1,7 +1,7 @@
 /**
  * This class describes MyScene behavior.
  *
- * Copyright 2015 Your Name <you@yourhost.com>
+ * Copyright 2023 Daniel Almonte <you@yourhost.com>
  */
 
 #include <fstream>
@@ -34,7 +34,7 @@ MyScene::MyScene() : Scene()
 	
 
 	// create the scene 'tree'
-	// add player to this Scene as a child.
+	// add player, enemy and planet to this Scene as a child.
 	this->addChild(planet);
 	this->addChild(player);
 	this->addChild(enemy);
@@ -49,7 +49,7 @@ MyScene::~MyScene()
 	this->removeChild(planet);
 	this->removeChild(enemy);
 
-	// delete player from the heap (there was a 'new' in the constructor)
+	// deletes the player, the planet and the enemy from the heap (there was a 'new' in the constructor)
 	delete player;
 	delete planet;
 	delete enemy;
@@ -70,6 +70,7 @@ void MyScene::update(float deltaTime)
 	// Rotatie
 	// ###############################################################
 
+	//gets the X and Y position of the mouse
 	float mx = input()->getMouseX();
 	float my = input()->getMouseY();
 	Point2 mouse = Point2(mx, my);
@@ -82,7 +83,6 @@ void MyScene::update(float deltaTime)
 	//Rotate player & bullets
 	float angle = atan2(mouse.y - player->position.y, mouse.x - player->position.x);
 	player->rotation.z = angle;
-	
 
 	// ###############################################################
 	// Screen Edges
@@ -179,11 +179,11 @@ void MyScene::update(float deltaTime)
 		planet->line()->color = RED;
 		player->velocity = Vector2 (0.2 , 0.4);
 	}
+	
 	else if (d < r + 40 )
 	{
 		player->line()->color = ORANGE;
 		planet->line()->color = ORANGE;
-		//planet->sprite()->color = RED;
 		player->velocity = Vector2 (0.4 , 0.8);
 	}
 	
@@ -191,7 +191,6 @@ void MyScene::update(float deltaTime)
 	{
 		player->line()->color = GREEN;
 		planet->line()->color = GREEN;
-		//planet->sprite()->color = WHITE;
 		player->velocity = Vector2(0.8, 1.2);
 	}
 }

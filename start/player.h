@@ -1,17 +1,14 @@
 /**
  * Copyright 2022 Daniel Almonte <you@yourhost.com>
  *
- * @file myentity.h
+ * @file player.h
  *
- * @brief description of MyEntity behavior.
+ * @brief description of the player behavior.
  */
 
-using namespace std;
 #ifndef PLAYER_H
 #define PLAYER_H
-#define _USE_MATH_DEFINES
 
-#include <cmath>
 #include "bullet.h"
 #include <rt2d/entity.h>
 
@@ -24,8 +21,6 @@ public:
 	/// @brief Destructor
 	virtual ~Player();
 
-	Vector2 Velocity = Vector2(0.8, 1.2);
-
 	/// @brief update is automatically called every frame
 	/// @param deltaTime the elapsed time in seconds
 	/// @return void
@@ -35,19 +30,7 @@ public:
 	std::vector<Bullet*> bullets;
 
 	/// @brief the speed that the player moves at
-	// Vector2 velocityY = Vector2(0, 1.2);
-	// Vector2 velocityX = Vector2(0.8, 0);
-	
 	Vector2 velocity = Vector2(0.8, 1.2);
-
-
-	// float Acceleration;
-	// float thrustForce = 500;
-	/// @brief the speed that the player decelerates at
-	//Vector2 decelaration = Vector2(50, 62,5);
-
-	/// @brief the amouth of health that the player has
-	//int playerHealth;
 
 
 private:
@@ -58,8 +41,6 @@ private:
 
 	/// @brief pointer to the spaceship bullets
 	Bullet* bullet;
-	
-	float angle;
 };
 
 #endif /* PLAYER_H */

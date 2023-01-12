@@ -1,5 +1,5 @@
 /**
- * Copyright 2015 Your Name <you@yourhost.com>
+ * Copyright 2023 Daniel Almonte <you@yourhost.com>
  *
  * @file myscene.h
  *
@@ -31,6 +31,7 @@ public:
 	/// @return void
 	virtual void update(float deltaTime);
 	
+	/// @brief the angle used to rotate the player
 	float angle;
 
 private:

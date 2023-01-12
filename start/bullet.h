@@ -2,9 +2,9 @@
 /**
  * Copyright 2022 Daniel Almonte <you@yourhost.com>
  *
- * @file myentity.h
+ * @file bullet.h
  *
- * @brief description of my player bullets behavior.
+ * @brief description of the bullets behavior.
  */
 
 
@@ -17,8 +17,6 @@
 //Bullet
 class Bullet : public Entity
 {
-
-//Planet
 public:
 	/// @brief Constructor
 	Bullet();
@@ -32,6 +30,7 @@ public:
 
 private:
 	/* add your private declarations */
+	
 	/// @brief the speed of the bullets
 	Point2 bulletSpeed = Point2(500, 500);
 

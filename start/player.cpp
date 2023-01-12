@@ -11,29 +11,13 @@ using namespace std;
 //Player
 Player::Player() : Entity()
 {
+	//adds the spacehShip sprite for the player
 	this->addSprite("assets/SpaceShip.tga");
+
+	//the color of the player spaceShip
 	this->sprite()->color = BLUE;
 
-	// Line s1;
-	// //Top line left corner
-	// s1.addPoint(-32, -32);
-	
-	// //Right top corner
-	// s1.addPoint(32, -32);
-	
-	// //Right bottom corner
-	// s1.addPoint(32, 32);
-	
-	// //Left bottom corner
-	// s1.addPoint(-32, 32);
-
-	// //Left top corner
-	// s1.addPoint(-32, -32);
-
-	// this->addLine(&s1);
-	// this->line()->color = GREEN;
-
-	//Debug circle
+	//the debug circle of the player
 	ddCircle(this->position.x, this->position.y, 64,GREEN);
 }
 
@@ -47,7 +31,7 @@ void Player::update(float deltaTime)
 	//###############################################################
 	// Movement
 	// ###############################################################
-	this->position += velocity * deltaTime;
+	
 	//Up
 	if (input()->getKey(KeyCode::W) || input()->getKey(KeyCode::Up)) 
 	{
@@ -69,42 +53,12 @@ void Player::update(float deltaTime)
 		this->position.x -= velocity.x;
 	}
 
-	// //Up
-	// if (input()->getKey(KeyCode::W) || input()->getKey(KeyCode::Up)) 
-	// {
-	// 	this->position -= Vector2(0, 1.2);
-	// }
-	// //Down
-	// if (input()->getKey(KeyCode::S) || input()->getKey(KeyCode::Down)) 
-	// {
-	// 	this->position += Vector2(0, 1.2);
-	// }
-	// //Right
-	// if (input()->getKey(KeyCode::D) || input()->getKey(KeyCode::Right)) 
-	// {
-	// 	this->position += Vector2(0.8, 0);
-	// }
-	// //Left
-	// if (input()->getKey(KeyCode::A) || input()->getKey(KeyCode::Left)) 
-	// {
-	// 	this->position -= Vector2(0.8, 0);
-	// }
-
-	// //Right
-	// if (input()->getKey(KeyCode::D) || input()->getKey(KeyCode::Right)) 
-	// {
-	// 	this->position += Vector2(0.3, 0);
-	// }
-	// //Left
-	// if (input()->getKey(KeyCode::A) || input()->getKey(KeyCode::Left)) 
-	// {
-	// 	this->position -= Vector2(0.3, 0);
-	// }
-
+	//gets the X and Y position of the mouse
 	float mx = input()->getMouseX();
 	float my = input()->getMouseY();
 	Point2 mouse = Point2(mx, my);
 
+	//the rotation
 	float angle = atan2(mouse.y - this->position.y, mouse.x - this->position.x);
 	this->rotation.z = angle;
 

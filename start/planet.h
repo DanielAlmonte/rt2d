@@ -1,9 +1,9 @@
 /**
  * Copyright 2022 Daniel Almonte <you@yourhost.com>
  *
- * @file myentity.h
+ * @file planet.h
  *
- * @brief description of MyEntity behavior.
+ * @brief description of the planet behavior.
  */
 
 
@@ -29,14 +29,12 @@ public:
 	/// @return void
 	virtual void update(float deltaTime);
 
-	/// @brief the amouth of health that the planet has
-	//int planetHealth;
-
+	/// @brief pointer to the player
 	Player* player;
 
 private:
 	/* add your private declarations */
-	
+
 };
 
 #endif /* PLANET_H */
