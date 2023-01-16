@@ -93,24 +93,24 @@ void MyScene::update(float deltaTime)
 	//X Axis
 	if (player -> position.x + player->sprite()->size.x /2 > SWIDTH - 50)
 	{
-		player->acceleration.x += -3;
+		player->acceleration.x += -5;
 		cout<<1<<endl;
 	}
 	if (player -> position.x - player->sprite()->size.x /2  < 50)
 	{
-		player->acceleration.x -= -3;
+		player->acceleration.x -= -5;
 		cout<<2<<endl;
 	}
 
 	//Y Axis
-	if (player -> position.y + player->sprite()->size.y /2 > SHEIGHT - 50)
+	if (player -> position.y + player->sprite()->size.y /2 > SHEIGHT - 55)
 	{
-		player->acceleration.y += -3;
+		player->acceleration.y += -6;
 		cout<<3<<endl;
 	}
-	if (player -> position.y - player->sprite()->size.y /2  < 50)
+	if (player -> position.y - player->sprite()->size.y /2  < 55)
 	{
-		player->acceleration.y -= -3;
+		player->acceleration.y -= -6;
 		cout<<4<<endl;
 	}
 
