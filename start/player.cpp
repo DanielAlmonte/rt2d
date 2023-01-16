@@ -32,25 +32,35 @@ void Player::update(float deltaTime)
 	// Movement
 	// ###############################################################
 	
+	this->velocity += this->acceleration;
+	this->position += this->velocity * deltaTime;
+
 	//Up
 	if (input()->getKey(KeyCode::W) || input()->getKey(KeyCode::Up)) 
 	{
-		this->position.y -= velocity.y;
+		this->acceleration.y -= this->decceleration.y;
 	}
 	//Down
 	if (input()->getKey(KeyCode::S) || input()->getKey(KeyCode::Down)) 
 	{
-		this->position.y += velocity.y;
+		this->acceleration.y += this->decceleration.y;
 	}
 	//Right
 	if (input()->getKey(KeyCode::D) || input()->getKey(KeyCode::Right)) 
 	{
-		this->position.x += velocity.x;
+		this->acceleration.x += this->decceleration.x;
 	}
 	//Left
 	if (input()->getKey(KeyCode::A) || input()->getKey(KeyCode::Left)) 
 	{
-		this->position.x -= velocity.x;
+		this->acceleration.x -= this->decceleration.x;
+	}
+
+	//the max speed of the player
+	if (this->acceleration.getLength() > maxSpeed)
+	{
+		this->acceleration = this->acceleration.getNormalized();
+		this->acceleration *= maxSpeed;
 	}
 
 	//gets the X and Y position of the mouse

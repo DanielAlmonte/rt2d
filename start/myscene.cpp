@@ -91,23 +91,27 @@ void MyScene::update(float deltaTime)
 	//Border
 	
 	//X Axis
-	if (player -> position.x + player->sprite()->size.x /2 > SWIDTH)
+	if (player -> position.x + player->sprite()->size.x /2 > SWIDTH - 50)
 	{
-		player->position.x += -1;
+		player->acceleration.x += -3;
+		cout<<1<<endl;
 	}
-	if (player -> position.x - player->sprite()->size.x /2  < 0)
+	if (player -> position.x - player->sprite()->size.x /2  < 50)
 	{
-		player->position.x -= -1;
+		player->acceleration.x -= -3;
+		cout<<2<<endl;
 	}
 
 	//Y Axis
-	if (player -> position.y + player->sprite()->size.y /2 > SHEIGHT)
+	if (player -> position.y + player->sprite()->size.y /2 > SHEIGHT - 50)
 	{
-		player->position.y += -1;
+		player->acceleration.y += -3;
+		cout<<3<<endl;
 	}
-	if (player -> position.y - player->sprite()->size.y /2  < 0)
+	if (player -> position.y - player->sprite()->size.y /2  < 50)
 	{
-		player->position.y -= -1;
+		player->acceleration.y -= -3;
+		cout<<4<<endl;
 	}
 
 	//Teleport
@@ -148,9 +152,10 @@ void MyScene::update(float deltaTime)
 		//the radius of the enemy
 		float r = (enemy->sprite()->width() /2) + (enemy->sprite()->height() /2) /2;
 
+
 		if (d < r)
 		{
-			removeChild(enemy); 
+			removeChild(enemy);
 		}
 
         if (player->bullets[i]->position.x > SWIDTH || player->bullets[i]->position.x < 0 || player->bullets[i]->position.y < 0 || player->bullets[i]->position.y > SHEIGHT)
@@ -173,24 +178,19 @@ void MyScene::update(float deltaTime)
 	//the radius of the planet
 	float r = (planet->sprite()->width() /2) + (planet->sprite()->height() /2) /2;
 
+	//detects if the distance is smaller than the radius
 	if (d < r)
 	{
 		player->line()->color = RED;
 		planet->line()->color = RED;
-		player->velocity = Vector2 (0.2 , 0.4);
+		player->acceleration = player->acceleration * -5;
 	}
 	
-	else if (d < r + 40 )
-	{
-		player->line()->color = ORANGE;
-		planet->line()->color = ORANGE;
-		player->velocity = Vector2 (0.4 , 0.8);
-	}
-	
+	//detects if the distance is bigger than the radius
 	else if (d > r)
 	{
 		player->line()->color = GREEN;
 		planet->line()->color = GREEN;
-		player->velocity = Vector2(0.8, 1.2);
+		player->velocity = player->velocity.getNormalized();
 	}
 }

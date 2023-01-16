@@ -30,8 +30,16 @@ public:
 	std::vector<Bullet*> bullets;
 
 	/// @brief the speed that the player moves at
-	Vector2 velocity = Vector2(0.8, 1.2);
+	Vector2 velocity = Vector2(0.10, 0.15);
 
+	/// @brief the acceleration of the player
+	Vector2 acceleration = Vector2(0.2, 0.4);
+
+	/// @brief the decceleration of the player
+	Vector2 decceleration = Vector2(2.4, 4.8);
+
+	/// @brief the maximum speed that the player can move at
+	float maxSpeed = 500;
 
 private:
 	/* add your private declarations */
