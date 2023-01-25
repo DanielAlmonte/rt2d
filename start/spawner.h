@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 Daniel Almonte <you@yourhost.com>
+ * Copyright 2023 Daniel Almonte <you@yourhost.com>
  *
  * @file spawner.h
  *
@@ -11,7 +11,9 @@
 #define SPAWNER_H
 
 #include "myentity.h"
+#include "enemy.h"
 #include <rt2d/entity.h>
+#include "planet.h"
 
 
 //Spawner
@@ -19,7 +21,7 @@ class Spawner : public Entity
 {
 public:
 	/// @brief Constructor
-	Spawner();
+	Spawner(Planet* _planet);
 	/// @brief Destructor
 	virtual ~Spawner();
 
@@ -28,11 +30,13 @@ public:
 	/// @return void
 	virtual void update(float deltaTime);
 
-	/// @brief pointer to the spawner
-	Spawner* spawner;
+	std::vector <Enemy*> enemies;
 
 private:
 	/* add your private declarations */
+	Enemy* enemy;
+
+	Planet* _planet;
 
 };
 

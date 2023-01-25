@@ -1,18 +1,22 @@
 /**
  * This class describes my spawner behavior.
  *
- * Copyright 2022 Daniel Almonte <you@yourhost.com>
+ * Copyright 2023 Daniel Almonte <you@yourhost.com>
  */
 
 #include "myentity.h"
+#include "spawner.h"
 
 using namespace std;
 
 //Spawner
-Spawner::Spawner() : Entity()
+Spawner::Spawner(Planet* planet) : Entity()
 {
+	_planet = planet;
 	//adds the sprite for the Spawner
-	//this->addSprite("assets/Spawner.tga");
+	// this->addSprite("assets/Planet.tga");
+
+	// this->scale = Point2(0.4, 0.4);
 
 	//the color of the Spawner
 	//this->sprite()->color = RED;		
@@ -29,5 +33,12 @@ Spawner::~Spawner()
 
 void Spawner::update(float deltaTime)
 {
-
+	if (input()->getKeyDown(KeyCode::E))
+	{
+		enemy = new Enemy(_planet);
+		Point2 random = Point2(rand() % SWIDTH , rand() % SHEIGHT);
+		this->parent()->addChild(enemy);
+		enemy->position = this->position + random;
+		enemies.push_back(enemy);
+	}
 }

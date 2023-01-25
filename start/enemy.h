@@ -1,5 +1,6 @@
+#pragma once
 /**
- * Copyright 2015 Your Name <you@yourhost.com>
+ * Copyright 2023 Daniel Almonte <you@yourhost.com>
  *
  * @file enemy.h
  *
@@ -10,13 +11,14 @@
 #define ENEMY_H
 
 #include "myentity.h"
+#include "planet.h"
 
 /// @brief The MyScene class is the Scene implementation.
 class Enemy : public Entity
 {
 public:
 	/// @brief Constructor
-	Enemy();
+	Enemy(Planet* _planet);
 	/// @brief Destructor
 	virtual ~Enemy();
 
@@ -27,11 +29,16 @@ public:
 	
 
 private:
-	/// @brief the enemy that spawns
-	Enemy* enemy;
+	
+	Planet* _planet;
 
+	float health;
+	float target;
+
+	
 	/// @brief a Timer to rotate the color every n seconds
 	Timer t;
 };
 
 #endif /* ENEMY_H */
+#pragma once

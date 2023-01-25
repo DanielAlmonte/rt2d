@@ -16,6 +16,7 @@
 #include "planet.h"
 #include "bullet.h"
 #include "enemy.h"
+#include "spawner.h"
 
 /// @brief The MyScene class is the Scene implementation.
 class MyScene : public Scene
@@ -46,6 +47,14 @@ private:
 
 	/// @brief Pointer to the bullet
 	Bullet* bullet;
+
+	std::vector <Spawner*> spawners;
+
+	/// @brief Pointer to the spawners
+	Spawner* TRSpawner;
+	Spawner* TLSpawner;
+	Spawner* BRSpawner;
+	Spawner* BLSpawner;
 
 	/// @brief a Timer to rotate the color every n seconds
 	Timer t;

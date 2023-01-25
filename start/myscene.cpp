@@ -29,16 +29,41 @@ MyScene::MyScene() : Scene()
 	planet = new Planet();
 	planet->position = Point2(SWIDTH/2, SHEIGHT/2);
 
-	enemy= new Enemy();
-	enemy->position = Point2(SWIDTH/2, SHEIGHT/2);
+	// enemy = new Enemy();
+	// enemy->position = Point2(SWIDTH/2, SHEIGHT/2);
+
+	// spawn = new Spawner(planet);
+	// spawn->position = Point2(SWIDTH/3, SHEIGHT/3);
+
+	TRSpawner = new Spawner(planet);
+	TRSpawner->position = Point2(1500, 0);
+
+	TLSpawner = new Spawner(planet);
+	TLSpawner->position = Point2(-1500, 0);
 	
+	BRSpawner = new Spawner(planet);
+	BRSpawner->position = Point2(1500, 940);
+	
+	BLSpawner = new Spawner(planet);
+	BLSpawner->position = Point2(0, 940);
+	
+	spawners.push_back(TRSpawner);
+	spawners.push_back(TLSpawner);
+	spawners.push_back(BRSpawner);
+	spawners.push_back(BLSpawner);
+
 
 	// create the scene 'tree'
 	// add player, enemy and planet to this Scene as a child.
 	this->addChild(planet);
 	this->addChild(player);
-	this->addChild(enemy);
-	
+	//this->addChild(enemy);
+	// this->addChild(spawn);
+
+	this->addChild(TRSpawner);
+	this->addChild(TLSpawner);
+	this->addChild(BRSpawner);
+	this->addChild(BLSpawner);
 }
 
 
@@ -47,12 +72,22 @@ MyScene::~MyScene()
 	// deconstruct and delete the Tree
 	this->removeChild(player);
 	this->removeChild(planet);
-	this->removeChild(enemy);
+	//this->removeChild(enemy);
+	//this->removeChild(spawn);
+	this->removeChild(TRSpawner);
+	this->removeChild(TLSpawner);
+	this->removeChild(BRSpawner);
+	this->removeChild(BLSpawner);
 
 	// deletes the player, the planet and the enemy from the heap (there was a 'new' in the constructor)
 	delete player;
 	delete planet;
-	delete enemy;
+	//delete enemy;
+	//delete spawn;
+	delete TRSpawner;
+	delete TLSpawner;
+	delete BRSpawner;
+	delete BLSpawner;
 }
 
 void MyScene::update(float deltaTime)
@@ -146,17 +181,17 @@ void MyScene::update(float deltaTime)
 	for (int i = player->bullets.size() - 1; i >= 0; i--) 
 	{ 
 		//the disntace between the enemy and the bullet
-		Vector2 distance =  Vector2(enemy->position - player->bullets[i]->position);
-		float d = distance.getLength();
+		// Vector2 distance =  Vector2(enemy->position - player->bullets[i]->position);
+		// float d = distance.getLength();
 
-		//the radius of the enemy
-		float r = (enemy->sprite()->width() /2) + (enemy->sprite()->height() /2) /2;
+		// //the radius of the enemy
+		// float r = (enemy->sprite()->width() /2) + (enemy->sprite()->height() /2) /2;
 
 
-		if (d < r)
-		{
-			removeChild(enemy);
-		}
+		// if (d < r)
+		// {
+		// 	bullet->hit = true;
+		// }		
 
         if (player->bullets[i]->position.x > SWIDTH || player->bullets[i]->position.x < 0 || player->bullets[i]->position.y < 0 || player->bullets[i]->position.y > SHEIGHT)
         {
@@ -166,7 +201,7 @@ void MyScene::update(float deltaTime)
             cout << "delete bullet" << endl;
         }
     }
-
+	
 	// ###############################################################
 	// Collision detection
 	// ###############################################################
