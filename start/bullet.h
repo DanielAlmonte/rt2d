@@ -34,7 +34,7 @@ private:
 	/* add your private declarations */
 	
 	/// @brief the speed of the bullets
-	Point2 bulletSpeed = Point2(500, 500);
+	Point2 bulletSpeed = Point2(650, 650);
 
 	Timer t;
 };
