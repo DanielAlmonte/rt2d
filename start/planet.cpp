@@ -15,7 +15,7 @@ Planet::Planet() : Entity()
 {
 	health = 100;
 	//adds the sprite for the planet
-	this->addSprite("assets/PlanetTest2.tga");
+	this->addSprite("assets/Planet.tga");
 
 	//the color of the planet
 	//this->sprite()->color = WHITE;		
