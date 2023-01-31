@@ -21,7 +21,10 @@ Planet::Planet() : Entity()
 	//this->sprite()->color = WHITE;		
 
 	//the debug circle of the planet
-	ddCircle(this->position.x, this->position.y, 128,GREEN);
+	//ddCircle(this->position.x, this->position.y, 128,GREEN);
+
+	//the scale of the planet
+	this->scale = Point(0.5f, 0.5f);
 }
 
 
@@ -31,7 +34,8 @@ Planet::~Planet()
 }
 
 void Planet::update(float deltaTime)
-{
+{	
+	//Change the color of the planet
 	if(this->health <= 50)
 	{
 		this->sprite()->color = CYAN;

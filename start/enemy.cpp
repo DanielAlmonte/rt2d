@@ -15,9 +15,12 @@ Enemy::Enemy(Planet* planet) : Entity()
 	this->sprite()->color = ORANGE;
 
 	//Debug circle
-	ddCircle(this->position.x, this->position.y, 64,GREEN);
+	//ddCircle(this->position.x, this->position.y, 64,GREEN);
 	health = 10;
 	_planet = planet;
+
+	//the scale of the planet
+	this->scale = Point(0.5f, 0.5f);
 }
 
 Enemy::~Enemy()

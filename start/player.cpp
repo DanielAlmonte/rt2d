@@ -19,7 +19,10 @@ Player::Player() : Entity()
 	this->sprite()->color = CYAN;
 
 	//the debug circle of the player
-	ddCircle(this->position.x, this->position.y, 64,GREEN);
+	//ddCircle(this->position.x, this->position.y, 64,GREEN);
+
+	//the scale of the player
+	this->scale = Point(0.5f, 0.5f);
 }
 
 Player::~Player()

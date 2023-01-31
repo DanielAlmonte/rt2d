@@ -17,7 +17,7 @@ Bullet::Bullet() : Entity()
 	this->sprite()->color = CYAN;
 
 	//Debug circle
-	ddCircle(this->position.x, this->position.y, 8,GREEN);
+	//ddCircle(this->position.x, this->position.y, 8,GREEN);
 
 	hit = false;
 }

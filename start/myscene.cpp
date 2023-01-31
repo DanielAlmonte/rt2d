@@ -120,7 +120,7 @@ void MyScene::update(float deltaTime)
 	ddClear();
 
 	//Line between player and mouse
-	ddLine(player->position.x, player->position.y, mx, my, GREEN);
+	//ddLine(player->position.x, player->position.y, mx, my, CYAN);
 
 	//Rotate player & bullets
 	float angle = atan2(mouse.y - player->position.y, mouse.x - player->position.x);
@@ -210,7 +210,7 @@ void MyScene::update(float deltaTime)
 					}
 
 					//detects if the bullet has hit the enemy
-					if (Vector2(bullet->position - enemy->position).getLengthSquared() < 32 * 32)
+					if (Vector2(bullet->position - enemy->position).getLengthSquared() < 16 * 16)//32
 					{
 						enemy->health -= damage;
 						cout<<enemy->health<<endl;
@@ -253,7 +253,7 @@ void MyScene::update(float deltaTime)
 			if (enemy != nullptr && planet != nullptr)
 			{
 				////detects if the enemy has hit the planet
-				if (Vector2(planet->position - enemy->position).getLengthSquared() < 192 * 192)//162
+				if (Vector2(planet->position - enemy->position).getLengthSquared() < 81 * 81)//162
 				{
 					planet->health -= damage;
 					cout<<planet->health<<endl;
@@ -267,7 +267,7 @@ void MyScene::update(float deltaTime)
 			if (enemy != nullptr && player != nullptr)
 			{
 				////detects if the enemy has hit the player
-				if (Vector2(player->position - enemy->position).getLengthSquared() < 128 * 128)//64
+				if (Vector2(player->position - enemy->position).getLengthSquared() < 32 * 32)//64
 				{
 					player->health -= damage;
 					cout<<player->health<<endl;
@@ -303,21 +303,21 @@ void MyScene::update(float deltaTime)
 	float d = distance.getLength();
 
 	//the radius of the planet
-	float r = (planet->sprite()->width() /2) + (planet->sprite()->height() /2) /2;
+	float r = (planet->sprite()->width() /4.8) + (planet->sprite()->height() /4.8) /2;
 	
 	//detects if the distance is smaller than the radius
 	if (d < r)
 	{
-		player->line()->color = RED;
-		planet->line()->color = RED;
-		player->acceleration = player->acceleration * -5;
+		// player->line()->color = RED;
+		// planet->line()->color = RED;
+		player->acceleration = player->acceleration * -3;
 	}
 	
 	//detects if the distance is bigger than the radius
 	else if (d > r)
 	{
-		player->line()->color = GREEN;
-		planet->line()->color = GREEN;
+		// player->line()->color = GREEN;
+		// planet->line()->color = GREEN;
 		player->velocity = player->velocity.getNormalized();
 	}
 }
