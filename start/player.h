@@ -39,7 +39,7 @@ public:
 	Vector2 decceleration = Vector2(2.4, 4.8);
 
 	/// @brief the maximum speed that the player can move at
-	float maxSpeed = 500;
+	float maxSpeed = 300;
 
 	int health;
 

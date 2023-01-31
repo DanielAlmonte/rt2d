@@ -95,5 +95,15 @@ void Player::update(float deltaTime)
 	// {
 	// 	this->sprite()->color = BLUE;
 	// }
+
+	if (input()->getKey(KeyCode::LeftShift) || input()->getKey(KeyCode::RightShift)) 
+	{
+		this->maxSpeed = 500;
+	}
+
+	else
+	{
+		this->maxSpeed = 300;
+	}
 }
 
