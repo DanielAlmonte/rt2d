@@ -28,6 +28,8 @@ public:
 	/// @return void
 	virtual void update(float deltaTime);
 
+	bool hit;
+
 private:
 	/* add your private declarations */
 	

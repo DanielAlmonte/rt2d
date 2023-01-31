@@ -41,6 +41,8 @@ public:
 	/// @brief the maximum speed that the player can move at
 	float maxSpeed = 500;
 
+	int health;
+
 private:
 	/* add your private declarations */
 

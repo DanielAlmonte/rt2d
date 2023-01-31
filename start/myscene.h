@@ -35,6 +35,11 @@ public:
 	/// @brief the angle used to rotate the player
 	float angle;
 
+	float targetPlayer;
+	float targetPlanet;
+
+	int damage;
+
 private:
 	/// @brief the spaceship that the player moves
 	Player* player;
@@ -48,6 +53,7 @@ private:
 	/// @brief Pointer to the bullet
 	Bullet* bullet;
 
+	MyEntity* layer;
 	std::vector <Spawner*> spawners;
 
 	/// @brief Pointer to the spawners
@@ -55,7 +61,7 @@ private:
 	Spawner* TLSpawner;
 	Spawner* BRSpawner;
 	Spawner* BLSpawner;
-
+	bool remove;
 	/// @brief a Timer to rotate the color every n seconds
 	Timer t;
 };

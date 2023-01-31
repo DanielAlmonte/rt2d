@@ -32,6 +32,8 @@ public:
 	/// @brief pointer to the player
 	Player* player;
 
+	int health;
+
 private:
 	/* add your private declarations */
 

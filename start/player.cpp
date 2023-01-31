@@ -11,11 +11,12 @@ using namespace std;
 //Player
 Player::Player() : Entity()
 {
+	health = 50;
 	//adds the spacehShip sprite for the player
 	this->addSprite("assets/SpaceShip.tga");
 
 	//the color of the player spaceShip
-	this->sprite()->color = BLUE;
+	this->sprite()->color = CYAN;
 
 	//the debug circle of the player
 	ddCircle(this->position.x, this->position.y, 64,GREEN);
@@ -86,5 +87,10 @@ void Player::update(float deltaTime)
         this->parent()->addChild(bullet);
         bullets.push_back(bullet);
 	}
+
+	// if(this->health <= 25)
+	// {
+	// 	this->sprite()->color = BLUE;
+	// }
 }
 

@@ -21,8 +21,12 @@ MyScene::MyScene() : Scene()
 	// start the timer.
 	t.start();
 
+	damage = 5;
 	// create a single instance of MyEntity in the middle of the screen.
 	// the Sprite is added in Constructor of MyEntity.
+	layer = new MyEntity();
+	layer->position = Point2(SWIDTH/2, SHEIGHT/2);
+	
 	player = new Player();
 	player->position = Point2(SWIDTH/2, SHEIGHT/1.2);
 
@@ -36,16 +40,16 @@ MyScene::MyScene() : Scene()
 	// spawn->position = Point2(SWIDTH/3, SHEIGHT/3);
 
 	TRSpawner = new Spawner(planet);
-	TRSpawner->position = Point2(1500, 0);
+	TRSpawner->position = Point2(1500, -500);
 
 	TLSpawner = new Spawner(planet);
-	TLSpawner->position = Point2(-1500, 0);
+	TLSpawner->position = Point2(-500, -500);
 	
 	BRSpawner = new Spawner(planet);
-	BRSpawner->position = Point2(1500, 940);
+	BRSpawner->position = Point2(1500, 1000);
 	
 	BLSpawner = new Spawner(planet);
-	BLSpawner->position = Point2(0, 940);
+	BLSpawner->position = Point2(-500, 1000);
 	
 	spawners.push_back(TRSpawner);
 	spawners.push_back(TLSpawner);
@@ -55,6 +59,7 @@ MyScene::MyScene() : Scene()
 
 	// create the scene 'tree'
 	// add player, enemy and planet to this Scene as a child.
+	this->addChild(layer);
 	this->addChild(planet);
 	this->addChild(player);
 	//this->addChild(enemy);
@@ -70,6 +75,7 @@ MyScene::MyScene() : Scene()
 MyScene::~MyScene()
 {
 	// deconstruct and delete the Tree
+	this->removeChild(layer);
 	this->removeChild(player);
 	this->removeChild(planet);
 	//this->removeChild(enemy);
@@ -80,6 +86,7 @@ MyScene::~MyScene()
 	this->removeChild(BLSpawner);
 
 	// deletes the player, the planet and the enemy from the heap (there was a 'new' in the constructor)
+	delete layer;
 	delete player;
 	delete planet;
 	//delete enemy;
@@ -92,7 +99,7 @@ MyScene::~MyScene()
 
 void MyScene::update(float deltaTime)
 {
-
+	
 	// ###############################################################
 	// Escape key stops the Scene
 	// ###############################################################
@@ -175,33 +182,118 @@ void MyScene::update(float deltaTime)
 	
 
 	// ###############################################################
-	// Delete Bullets
+	// Delete Bullets Or Enemies
 	// ###############################################################
-	
-	for (int i = player->bullets.size() - 1; i >= 0; i--) 
+
+	//checks for every bullet
+	for (int i = player->bullets.size() - 1; i >= 0; i--)
 	{ 
-		//the disntace between the enemy and the bullet
-		// Vector2 distance =  Vector2(enemy->position - player->bullets[i]->position);
-		// float d = distance.getLength();
+		//makes the bullet pointer, a pointer to the bullet in the list
+		Bullet* bullet = player->bullets[i]; 
 
-		// //the radius of the enemy
-		// float r = (enemy->sprite()->width() /2) + (enemy->sprite()->height() /2) /2;
+		//checks every spawner
+		for (int e = spawners.size() - 1; e >= 0; e--)
+		{ 
+			//checks for each spawner the emenies that have been spawn
+			for (int i = spawners[e]->enemies.size() - 1; i >= 0; i--)
+			{
+				//makes the enemy pointer, a pointer to the enemies that have been spawn
+				Enemy* enemy = spawners[e]->enemies[i]; 
 
+				//if the enemy is not a null pointer
+				if (enemy != nullptr)
+				{	
+					//removes the bullets if it is out of the screen
+					if (bullet->position.x > SWIDTH || bullet->position.x < 0 || bullet->position.y < 0 || bullet->position.y > SHEIGHT)
+					{
+						bullet->hit = true;
+					}
 
-		// if (d < r)
-		// {
-		// 	bullet->hit = true;
-		// }		
+					//detects if the bullet has hit the enemy
+					if (Vector2(bullet->position - enemy->position).getLengthSquared() < 32 * 32)
+					{
+						enemy->health -= damage;
+						cout<<enemy->health<<endl;
+						bullet->hit = true;
+					}
 
-        if (player->bullets[i]->position.x > SWIDTH || player->bullets[i]->position.x < 0 || player->bullets[i]->position.y < 0 || player->bullets[i]->position.y > SHEIGHT)
-        {
-            this->removeChild(player->bullets[i]);
-            delete player->bullets[i];
-            player->bullets.erase(player->bullets.begin() + i);
-            cout << "delete bullet" << endl;
-        }
-    }
+					//removes the enemy if it doesn't have any health left
+					if (enemy->health <= 0)
+					{ 
+						this->removeChild(enemy);
+						delete enemy;
+						enemy = nullptr;
+						spawners[e]->enemies.erase(spawners[e]->enemies.begin() + i);
+					}
+				}
+			}
+		}
+
+		//removes the bullet if its not a null pointer
+		if (bullet->hit && bullet != nullptr)
+		{
+			this->removeChild(bullet);
+			delete bullet;
+			bullet = nullptr;
+			player->bullets.erase(player->bullets.begin() + i);
+			std::cout << "delete bullets" << std::endl;
+		}
+	}
+
+	//checks every spawner
+	for (int e = spawners.size() - 1; e >= 0; e--)
+	{
+		//checks for each spawner the emenies that have been spawn
+		for (int i = spawners[e]->enemies.size() - 1; i >= 0; i--)
+		{
+			//makes the enemy pointer, a pointer to the enemies that have been spawn
+			Enemy* enemy = spawners[e]->enemies[i];
+
+			//if the enemy and the planet are not a null pointer
+			if (enemy != nullptr && planet != nullptr)
+			{
+				////detects if the enemy has hit the planet
+				if (Vector2(planet->position - enemy->position).getLengthSquared() < 192 * 192)//162
+				{
+					planet->health -= damage;
+					cout<<planet->health<<endl;
+					this->removeChild(enemy);
+					delete enemy;
+					enemy = nullptr;
+					spawners[e]->enemies.erase(spawners[e]->enemies.begin() + i);
+				}
+			}
+
+			if (enemy != nullptr && player != nullptr)
+			{
+				////detects if the enemy has hit the player
+				if (Vector2(player->position - enemy->position).getLengthSquared() < 128 * 128)//64
+				{
+					player->health -= damage;
+					cout<<player->health<<endl;
+					this->removeChild(enemy);
+					delete enemy;
+					enemy = nullptr;
+					spawners[e]->enemies.erase(spawners[e]->enemies.begin() + i);
+				}
+			}
+		}
+	}
 	
+	//removes the planet if it doesn't have any health left
+	if (planet != nullptr && planet->health <= 0) {
+		this->removeChild(planet);
+		delete planet;
+		planet = nullptr;
+	}
+
+	//removes the player if it doesn't have any health left
+	if (player != nullptr && player->health <= 0) {
+		this->removeChild(player);
+		delete player;
+		player = nullptr;
+	}
+
 	// ###############################################################
 	// Collision detection
 	// ###############################################################
@@ -212,7 +304,7 @@ void MyScene::update(float deltaTime)
 
 	//the radius of the planet
 	float r = (planet->sprite()->width() /2) + (planet->sprite()->height() /2) /2;
-
+	
 	//detects if the distance is smaller than the radius
 	if (d < r)
 	{

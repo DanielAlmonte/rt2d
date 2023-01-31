@@ -12,7 +12,7 @@ Enemy::Enemy(Planet* planet) : Entity()
     this->addSprite("assets/SpaceShip.tga");
 
 	//the color of the player spaceShip
-	this->sprite()->color = RED;
+	this->sprite()->color = ORANGE;
 
 	//Debug circle
 	ddCircle(this->position.x, this->position.y, 64,GREEN);
@@ -29,6 +29,11 @@ void Enemy::update(float deltaTime)
 {
 	target = atan2(_planet->position.y - this->position.y, _planet->position.x - this->position.x);
 	this->rotation.z = target;
-	Point2 random = Point2(rand() % 60, rand() % 60);
-	this->position += (random + Point2(30, 30))* Point2(cos(this->rotation.z), sin(this->rotation.z))* deltaTime;
+	Point2 random = Point2(rand() % 65, rand() % 65);
+	this->position += (random + Point2(45, 45))* Point2(cos(this->rotation.z), sin(this->rotation.z))* deltaTime;
+
+	if(this->health == 5)
+	{
+		this->sprite()->color = RED;
+	}
 }

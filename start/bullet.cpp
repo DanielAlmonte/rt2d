@@ -14,10 +14,12 @@ Bullet::Bullet() : Entity()
 	this->addSprite("assets/Bullet.tga");
 
 	//the color of the bullet
-	this->sprite()->color = BLUE;
+	this->sprite()->color = CYAN;
 
 	//Debug circle
 	ddCircle(this->position.x, this->position.y, 8,GREEN);
+
+	hit = false;
 }
 
 Bullet::~Bullet()

@@ -27,12 +27,15 @@ public:
 	/// @return void
 	virtual void update(float deltaTime);
 	
+	int health;
+	
 
 private:
 	
 	Planet* _planet;
 
-	float health;
+	Player* player;
+
 	float target;
 
 	
