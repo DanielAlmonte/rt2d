@@ -130,29 +130,37 @@ void MyScene::update(float deltaTime)
 	// Screen Edges
 	// ###############################################################
 
+	if (player->maxSpeed == 500)
+	{
+		this->kickBack = -12;
+	}
+	else
+	{
+		this->kickBack = -6;
+	}
 	//Border
 	
 	//X Axis
-	if (player -> position.x + player->sprite()->size.x /2 > SWIDTH - 50)
+	if (player -> position.x + player->sprite()->size.x /2 > SWIDTH - 55)
 	{
-		player->acceleration.x += -5;
+		player->acceleration.x += this->kickBack;
 		cout<<1<<endl;
 	}
-	if (player -> position.x - player->sprite()->size.x /2  < 50)
+	if (player -> position.x - player->sprite()->size.x /2  < 55)
 	{
-		player->acceleration.x -= -5;
+		player->acceleration.x -= this->kickBack;
 		cout<<2<<endl;
 	}
 
 	//Y Axis
 	if (player -> position.y + player->sprite()->size.y /2 > SHEIGHT - 55)
 	{
-		player->acceleration.y += -6;
+		player->acceleration.y += this->kickBack;
 		cout<<3<<endl;
 	}
 	if (player -> position.y - player->sprite()->size.y /2  < 55)
 	{
-		player->acceleration.y -= -6;
+		player->acceleration.y -= this->kickBack;
 		cout<<4<<endl;
 	}
 

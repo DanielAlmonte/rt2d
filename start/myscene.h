@@ -35,6 +35,7 @@ public:
 	/// @brief the angle used to rotate the player
 	float angle;
 
+	int kickBack;
 	float targetPlayer;
 	float targetPlanet;
 
