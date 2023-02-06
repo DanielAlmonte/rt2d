@@ -168,6 +168,8 @@ IF(MAKE_START)
 		start/enemy.h
 		start/spawner.cpp
 		start/spawner.h
+		start/healthbar.cpp
+		start/healthbar.h
 	)
 	target_link_libraries(start
 		${ALL_GRAPHICS_LIBS}

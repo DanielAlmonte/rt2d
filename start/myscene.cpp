@@ -24,8 +24,6 @@ MyScene::MyScene() : Scene()
 	damage = 5;
 	// create a single instance of MyEntity in the middle of the screen.
 	// the Sprite is added in Constructor of MyEntity.
-	layer = new MyEntity();
-	layer->position = Point2(SWIDTH/2, SHEIGHT/2);
 	
 	player = new Player();
 	player->position = Point2(SWIDTH/2, SHEIGHT/1.2);
@@ -33,8 +31,20 @@ MyScene::MyScene() : Scene()
 	planet = new Planet();
 	planet->position = Point2(SWIDTH/2, SHEIGHT/2);
 
-	// enemy = new Enemy();
-	// enemy->position = Point2(SWIDTH/2, SHEIGHT/2);
+	redbarNet = new Healthbar();
+	redbarNet->position = Point2(SWIDTH/2, 710);
+
+	greenbar = new Healthbar();
+	greenbar->position = Point2(SWIDTH/2, 710);
+
+	redbarYer = new Healthbar();
+	redbarYer->position = Point2(SWIDTH/2, 700);
+
+	cyanbar = new Healthbar();
+	cyanbar->position = Point2(SWIDTH/2, 700);
+
+	// healthbar = new HealthBar();
+	// healthbar->position = Point2(SWIDTH/2, SHEIGHT/2);
 
 	// spawn = new Spawner(planet);
 	// spawn->position = Point2(SWIDTH/3, SHEIGHT/3);
@@ -59,38 +69,45 @@ MyScene::MyScene() : Scene()
 
 	// create the scene 'tree'
 	// add player, enemy and planet to this Scene as a child.
-	this->addChild(layer);
 	this->addChild(planet);
 	this->addChild(player);
-	//this->addChild(enemy);
-	// this->addChild(spawn);
+	this->addChild(redbarNet);
+	this->addChild(greenbar);
+	this->addChild(redbarYer);
+	this->addChild(cyanbar);
+	
 
 	this->addChild(TRSpawner);
 	this->addChild(TLSpawner);
 	this->addChild(BRSpawner);
 	this->addChild(BLSpawner);
+
+	//redbarNet->scale.y += 0.9;
+	//cyanbar->scale.x -= 1.2;
 }
 
 
 MyScene::~MyScene()
 {
 	// deconstruct and delete the Tree
-	this->removeChild(layer);
 	this->removeChild(player);
 	this->removeChild(planet);
-	//this->removeChild(enemy);
-	//this->removeChild(spawn);
+	this->removeChild(redbarNet);
+	this->removeChild(greenbar);
+	this->removeChild(redbarYer);
+	this->removeChild(cyanbar);
 	this->removeChild(TRSpawner);
 	this->removeChild(TLSpawner);
 	this->removeChild(BRSpawner);
 	this->removeChild(BLSpawner);
 
 	// deletes the player, the planet and the enemy from the heap (there was a 'new' in the constructor)
-	delete layer;
 	delete player;
 	delete planet;
-	//delete enemy;
-	//delete spawn;
+	delete redbarNet;
+	delete greenbar;
+	delete redbarYer;
+	delete cyanbar;
 	delete TRSpawner;
 	delete TLSpawner;
 	delete BRSpawner;
@@ -269,6 +286,7 @@ void MyScene::update(float deltaTime)
 					delete enemy;
 					enemy = nullptr;
 					spawners[e]->enemies.erase(spawners[e]->enemies.begin() + i);
+					greenbar->scale.x -= scalebarNet;
 				}
 			}
 
@@ -283,6 +301,7 @@ void MyScene::update(float deltaTime)
 					delete enemy;
 					enemy = nullptr;
 					spawners[e]->enemies.erase(spawners[e]->enemies.begin() + i);
+					cyanbar->scale.x -= scalebarYer;
 				}
 			}
 		}
@@ -328,4 +347,19 @@ void MyScene::update(float deltaTime)
 		// planet->line()->color = GREEN;
 		player->velocity = player->velocity.getNormalized();
 	}
+
+	// ###############################################################
+	// Healthbar
+	// ###############################################################
+
+	greenbar->sprite()->color = GREEN;
+	redbarNet->sprite()->color = RED;
+	cyanbar->sprite()->color = CYAN;
+	redbarYer->sprite()->color = RED;
+
+	// if(planet->health <= 50)
+	// {
+	// 	greenbar->sprite()->color = ORANGE;
+	// 	scalebar = -0.1;
+	// }
 }

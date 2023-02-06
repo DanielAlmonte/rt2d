@@ -17,6 +17,7 @@
 #include "bullet.h"
 #include "enemy.h"
 #include "spawner.h"
+#include "healthbar.h"
 
 /// @brief The MyScene class is the Scene implementation.
 class MyScene : public Scene
@@ -54,7 +55,15 @@ private:
 	/// @brief Pointer to the bullet
 	Bullet* bullet;
 
-	MyEntity* layer;
+	Healthbar* greenbar;
+	Healthbar* redbarYer;
+	Healthbar* redbarNet;
+	Healthbar* cyanbar;
+
+	float scalebarNet = 0.1;
+	float scalebarYer = 0.2;
+
+	
 	std::vector <Spawner*> spawners;
 
 	/// @brief Pointer to the spawners
