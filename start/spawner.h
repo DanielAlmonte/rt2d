@@ -38,6 +38,7 @@ private:
 
 	Planet* _planet;
 
+	Timer t;
 };
 
 #endif /* SPAWNER_H */

@@ -12,6 +12,7 @@ using namespace std;
 //Spawner
 Spawner::Spawner(Planet* planet) : Entity()
 {
+	t.start();
 	_planet = planet;
 	//adds the sprite for the Spawner
 	// this->addSprite("assets/Planet.tga");
@@ -33,12 +34,22 @@ Spawner::~Spawner()
 
 void Spawner::update(float deltaTime)
 {
-	if (input()->getKeyDown(KeyCode::E))
+	// if (input()->getKeyDown(KeyCode::E))
+	// {
+	// 	enemy = new Enemy(_planet);
+	// 	Point2 random = Point2(rand() % SWIDTH -350 , rand() % SHEIGHT-250);
+	// 	this->parent()->addChild(enemy);
+	// 	enemy->position = this->position + random;
+	// 	enemies.push_back(enemy);
+	// }
+
+	if (t.seconds() > 5) 
 	{
 		enemy = new Enemy(_planet);
-		Point2 random = Point2(rand() % SWIDTH , rand() % SHEIGHT);
+		Point2 random = Point2(rand() % SWIDTH -350 , rand() % SHEIGHT-250);
 		this->parent()->addChild(enemy);
 		enemy->position = this->position + random;
 		enemies.push_back(enemy);
+		t.start();
 	}
 }

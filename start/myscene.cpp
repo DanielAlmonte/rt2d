@@ -362,4 +362,11 @@ void MyScene::update(float deltaTime)
 	// 	greenbar->sprite()->color = ORANGE;
 	// 	scalebar = -0.1;
 	// }
+
+	// if (t.seconds() > 0.0333f) 
+	// {
+	// 	RGBAColor color = player->sprite()->color;
+	// 	player->sprite()->color = Color::rotate(color, 0.01f);
+	// 	t.start();
+	// }
 }
