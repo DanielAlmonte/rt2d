@@ -7,8 +7,8 @@
 #include <fstream>
 #include <sstream>
 
+#include <rt2d/entity.h>
 #include "myscene.h"
-#include "myentity.h"
 #include "player.h"
 #include "bullet.h"
 #include "planet.h"
@@ -24,7 +24,7 @@ MyScene::MyScene() : Scene()
 	damage = 5;
 	// create a single instance of MyEntity in the middle of the screen.
 	// the Sprite is added in Constructor of MyEntity.
-	background = new MyEntity();
+	background = new Background();
 	background->position = Point2(SWIDTH/2, SHEIGHT/2);
 
 	player = new Player();

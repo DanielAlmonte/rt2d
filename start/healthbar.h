@@ -10,7 +10,6 @@
 #ifndef HEALTHBAR_H
 #define HEALTHBAR_H
 
-#include "myentity.h"
 #include <rt2d/entity.h>
 
 

@@ -4,7 +4,7 @@
  * Copyright 2023 Daniel Almonte <you@yourhost.com>
  */
 
-#include "myentity.h"
+#include <rt2d/entity.h>
 #include "spawner.h"
 
 using namespace std;

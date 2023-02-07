@@ -10,7 +10,6 @@
 #ifndef SPAWNER_H
 #define SPAWNER_H
 
-#include "myentity.h"
 #include "enemy.h"
 #include <rt2d/entity.h>
 #include "planet.h"

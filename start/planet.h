@@ -10,7 +10,6 @@
 #ifndef PLANET_H
 #define PLANET_H
 
-#include "myentity.h"
 #include "player.h"
 #include <rt2d/entity.h>
 

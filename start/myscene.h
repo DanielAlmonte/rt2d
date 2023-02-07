@@ -11,7 +11,7 @@
 
 #include <rt2d/scene.h>
 
-#include "myentity.h"
+#include "background.h"
 #include "player.h"
 #include "planet.h"
 #include "bullet.h"
@@ -44,7 +44,7 @@ public:
 
 private:
 
-	MyEntity* background;
+	Background* background;
 	
 	/// @brief the spaceship that the player moves
 	Player* player;

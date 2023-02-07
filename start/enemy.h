@@ -10,7 +10,7 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 
-#include "myentity.h"
+#include <rt2d/entity.h>
 #include "planet.h"
 
 /// @brief The MyScene class is the Scene implementation.

@@ -6,7 +6,7 @@
 
 #include "planet.h"
 #include "player.h"
-#include "myentity.h"
+#include <rt2d/entity.h>
 
 using namespace std;
 
