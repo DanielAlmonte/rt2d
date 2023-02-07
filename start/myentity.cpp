@@ -8,8 +8,9 @@
 
 MyEntity::MyEntity() : Entity()
 {
-    // this->addSprite("assets/Test.tga");
-    // this->sprite()->color = RED;
+    this->addSprite("assets/Background2.tga");
+    //Pink, magenta, gray, orange
+    this->sprite()->color = PINK;
     // this->scale = Point2(10, 10);		
 }
 

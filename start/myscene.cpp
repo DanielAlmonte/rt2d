@@ -24,7 +24,9 @@ MyScene::MyScene() : Scene()
 	damage = 5;
 	// create a single instance of MyEntity in the middle of the screen.
 	// the Sprite is added in Constructor of MyEntity.
-	
+	background = new MyEntity();
+	background->position = Point2(SWIDTH/2, SHEIGHT/2);
+
 	player = new Player();
 	player->position = Point2(SWIDTH/2, SHEIGHT/1.2);
 
@@ -69,6 +71,7 @@ MyScene::MyScene() : Scene()
 
 	// create the scene 'tree'
 	// add player, enemy and planet to this Scene as a child.
+	this->addChild(background);
 	this->addChild(planet);
 	this->addChild(player);
 	this->addChild(redbarNet);
@@ -92,6 +95,7 @@ MyScene::~MyScene()
 	// deconstruct and delete the Tree
 	this->removeChild(player);
 	this->removeChild(planet);
+	this->removeChild(background);
 	this->removeChild(redbarNet);
 	this->removeChild(greenbar);
 	this->removeChild(redbarYer);
@@ -104,6 +108,7 @@ MyScene::~MyScene()
 	// deletes the player, the planet and the enemy from the heap (there was a 'new' in the constructor)
 	delete player;
 	delete planet;
+	delete background;
 	delete redbarNet;
 	delete greenbar;
 	delete redbarYer;

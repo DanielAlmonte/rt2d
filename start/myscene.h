@@ -43,6 +43,9 @@ public:
 	int damage;
 
 private:
+
+	MyEntity* background;
+	
 	/// @brief the spaceship that the player moves
 	Player* player;
 
