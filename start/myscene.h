@@ -68,6 +68,8 @@ private:
 	Healthbar* redbarYer;
 	Healthbar* redbarNet;
 	Healthbar* cyanbar;
+	Healthbar* scorebarcyan;
+	Healthbar* scorebarblue;
 
 	float scalebarNet = 0.1;
 	float scalebarYer = 0.2;

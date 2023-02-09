@@ -32,7 +32,8 @@ MyScene::MyScene() : Scene()
 	spacehero->position = Point2(700, 680);
 
 	scoreboard = new Text();
-	scoreboard->position = Point2(SWIDTH/2, SHEIGHT/2);
+	scoreboard->scale = Point2(0.5f, 0.5f);
+	scoreboard->position = Point2(600, 20);
 
 	player = new Player();
 	player->position = Point2(SWIDTH/2, SHEIGHT/1.2);
@@ -92,10 +93,6 @@ MyScene::MyScene() : Scene()
 	this->addChild(TLSpawner);
 	this->addChild(BRSpawner);
 	this->addChild(BLSpawner);
-
-	//redbarNet->scale.y += 0.9;
-	//cyanbar->scale.x -= 1.2;
-	
 }
 
 
@@ -371,20 +368,17 @@ void MyScene::update(float deltaTime)
 	// Healthbar & Scoreboard colors
 	// ###############################################################
 
+	//Healthbar
 	greenbar->sprite()->color = GREEN;
 	redbarNet->sprite()->color = RED;
 	cyanbar->sprite()->color = CYAN;
 	redbarYer->sprite()->color = RED;
 
-	// if(planet->health <= 50)
-	// {
-	// 	greenbar->sprite()->color = ORANGE;
-	// 	scalebar = -0.1;
-	// }
 
-	scoreboard->message("score: ", CYAN);
-	scoreboard->scale = Point2(0.5f, 0.5f);
-	scoreboard->position = Point2(600, 15);
+	//Scoreboard
+	std::stringstream clicktxt;
+	clicktxt << "score: " << score;
+	scoreboard->message(clicktxt.str(), CYAN);
 
 	
 	// ###############################################################
