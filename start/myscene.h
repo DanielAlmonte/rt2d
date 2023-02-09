@@ -10,8 +10,10 @@
 #define MYSCENE_H
 
 #include <rt2d/scene.h>
+#include <rt2d/text.h>
 
 #include "background.h"
+#include "start.h"
 #include "player.h"
 #include "planet.h"
 #include "bullet.h"
@@ -45,7 +47,11 @@ public:
 private:
 
 	Background* background;
+
+	Start* spacehero;
 	
+	Text* scoreboard;
+
 	/// @brief the spaceship that the player moves
 	Player* player;
 
@@ -65,7 +71,8 @@ private:
 
 	float scalebarNet = 0.1;
 	float scalebarYer = 0.2;
-
+	int score = 0;
+	int de = .1;
 	
 	std::vector <Spawner*> spawners;
 
@@ -77,6 +84,8 @@ private:
 	bool remove;
 	/// @brief a Timer to rotate the color every n seconds
 	Timer t;
+	Timer l;
+	Timer lt;
 };
 
 #endif /* SCENE00_H */

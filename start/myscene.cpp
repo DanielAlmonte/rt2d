@@ -20,12 +20,19 @@ MyScene::MyScene() : Scene()
 {
 	// start the timer.
 	t.start();
+	lt.start();
 
 	damage = 5;
 	// create a single instance of MyEntity in the middle of the screen.
 	// the Sprite is added in Constructor of MyEntity.
 	background = new Background();
 	background->position = Point2(SWIDTH/2, SHEIGHT/2);
+
+	spacehero = new Start();
+	spacehero->position = Point2(700, 680);
+
+	scoreboard = new Text();
+	scoreboard->position = Point2(SWIDTH/2, SHEIGHT/2);
 
 	player = new Player();
 	player->position = Point2(SWIDTH/2, SHEIGHT/1.2);
@@ -72,13 +79,14 @@ MyScene::MyScene() : Scene()
 	// create the scene 'tree'
 	// add player, enemy and planet to this Scene as a child.
 	this->addChild(background);
+	this->addChild(scoreboard);
 	this->addChild(planet);
 	this->addChild(player);
 	this->addChild(redbarNet);
 	this->addChild(greenbar);
 	this->addChild(redbarYer);
 	this->addChild(cyanbar);
-	
+	this->addChild(spacehero);
 
 	this->addChild(TRSpawner);
 	this->addChild(TLSpawner);
@@ -87,15 +95,18 @@ MyScene::MyScene() : Scene()
 
 	//redbarNet->scale.y += 0.9;
 	//cyanbar->scale.x -= 1.2;
+	
 }
 
 
 MyScene::~MyScene()
 {
 	// deconstruct and delete the Tree
+	this->removeChild(spacehero);
 	this->removeChild(player);
 	this->removeChild(planet);
 	this->removeChild(background);
+	this->removeChild(scoreboard);
 	this->removeChild(redbarNet);
 	this->removeChild(greenbar);
 	this->removeChild(redbarYer);
@@ -109,6 +120,8 @@ MyScene::~MyScene()
 	delete player;
 	delete planet;
 	delete background;
+	delete spacehero;
+	delete scoreboard;
 	delete redbarNet;
 	delete greenbar;
 	delete redbarYer;
@@ -121,7 +134,6 @@ MyScene::~MyScene()
 
 void MyScene::update(float deltaTime)
 {
-	
 	// ###############################################################
 	// Escape key stops the Scene
 	// ###############################################################
@@ -254,6 +266,8 @@ void MyScene::update(float deltaTime)
 						delete enemy;
 						enemy = nullptr;
 						spawners[e]->enemies.erase(spawners[e]->enemies.begin() + i);
+						score++;
+						cout<<score<<endl;
 					}
 				}
 			}
@@ -354,7 +368,7 @@ void MyScene::update(float deltaTime)
 	}
 
 	// ###############################################################
-	// Healthbar
+	// Healthbar & Scoreboard colors
 	// ###############################################################
 
 	greenbar->sprite()->color = GREEN;
@@ -368,10 +382,45 @@ void MyScene::update(float deltaTime)
 	// 	scalebar = -0.1;
 	// }
 
-	// if (t.seconds() > 0.0333f) 
-	// {
-	// 	RGBAColor color = player->sprite()->color;
-	// 	player->sprite()->color = Color::rotate(color, 0.01f);
-	// 	t.start();
-	// }
+	scoreboard->message("score: ", CYAN);
+	scoreboard->scale = Point2(0.5f, 0.5f);
+	scoreboard->position = Point2(600, 15);
+
+	
+	// ###############################################################
+	// Start SpaceHero
+	// ###############################################################
+	
+	if (t.seconds() > 0.0333f) 
+	{
+		RGBAColor color = spacehero->sprite()->color;
+		spacehero->sprite()->color = Color::rotate(color, 0.01f);
+		t.start();
+	}
+
+	if (lt.seconds() > 0 && lt.seconds() < 4)
+	{
+		spacehero->scale -= Point2(0.00035, 0.00035);
+		spacehero->position.y -= 0.13;
+		spacehero->position.x -= 0.007;
+	}
+	
+	if (lt.seconds() > 4.5)
+	{
+		spacehero->sprite()->color = BLACK;
+		t.stop();
+	}
+	
+	if (lt.seconds() > 5)
+	{
+		spacehero->position.x += 0.6;
+	}
+
+	if (lt.seconds() > 7.8)
+	{
+		this->removeChild(spacehero);
+		delete spacehero;
+		spacehero = nullptr;
+		lt.stop();
+	}
 }
