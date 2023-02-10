@@ -132,6 +132,43 @@ MyScene::~MyScene()
 void MyScene::update(float deltaTime)
 {
 	// ###############################################################
+	// Start SpaceHero
+	// ###############################################################
+	
+	if (t.seconds() > 0.0333f) 
+	{
+		RGBAColor color = spacehero->sprite()->color;
+		spacehero->sprite()->color = Color::rotate(color, 0.01f);
+		t.start();
+	}
+
+	if (lt.seconds() > 0 && lt.seconds() < 4)
+	{
+		spacehero->scale -= Point2(0.00035, 0.00035);
+		spacehero->position.y -= 0.15;
+		spacehero->position.x -= 0.007;
+	}
+	
+	else if (lt.seconds() > 4.6 && lt.seconds() < 4.7)
+	{
+		spacehero->sprite()->color = BLACK;
+		t.stop();
+	}
+	
+	else if (lt.seconds() > 4.7 && lt.seconds() < 8)
+	{
+		spacehero->position.x += 0.8;
+	}
+
+	if (lt.seconds() > 8.1)
+	{
+		this->removeChild(spacehero);
+		delete spacehero;
+		spacehero = nullptr;
+		lt.stop();
+	}
+
+	// ###############################################################
 	// Escape key stops the Scene
 	// ###############################################################
 	if (input()->getKeyUp(KeyCode::Escape)) 
@@ -379,42 +416,4 @@ void MyScene::update(float deltaTime)
 	std::stringstream clicktxt;
 	clicktxt << "score: " << score;
 	scoreboard->message(clicktxt.str(), CYAN);
-
-	
-	// ###############################################################
-	// Start SpaceHero
-	// ###############################################################
-	
-	if (t.seconds() > 0.0333f) 
-	{
-		RGBAColor color = spacehero->sprite()->color;
-		spacehero->sprite()->color = Color::rotate(color, 0.01f);
-		t.start();
-	}
-
-	if (lt.seconds() > 0 && lt.seconds() < 4)
-	{
-		spacehero->scale -= Point2(0.00035, 0.00035);
-		spacehero->position.y -= 0.13;
-		spacehero->position.x -= 0.007;
-	}
-	
-	if (lt.seconds() > 4.5)
-	{
-		spacehero->sprite()->color = BLACK;
-		t.stop();
-	}
-	
-	if (lt.seconds() > 5)
-	{
-		spacehero->position.x += 0.6;
-	}
-
-	if (lt.seconds() > 7.8)
-	{
-		this->removeChild(spacehero);
-		delete spacehero;
-		spacehero = nullptr;
-		lt.stop();
-	}
 }
