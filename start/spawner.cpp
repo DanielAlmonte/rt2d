@@ -43,7 +43,7 @@ void Spawner::update(float deltaTime)
 	// 	enemies.push_back(enemy);
 	// }
 
-	if (t.seconds() > 5) 
+	if (t.seconds() > 5.25) 
 	{
 		enemy = new Enemy(_planet);
 		Point2 random = Point2(rand() % SWIDTH -350 , rand() % SHEIGHT-250);
